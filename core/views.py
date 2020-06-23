@@ -38,5 +38,5 @@ def pricing(request):
 
 def create_appointment(request, id):
     plan = get_object_or_404(PricingPlan, id=id)
-    appointment_form = forms.CreateAppointmentForm()
+    appointment_form = forms.CreateAppointmentForm(initial={'plan': plan})
     return render(request, 'core/create_appointment.html', {'plan': plan, 'appointment_form': appointment_form})

@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.shortcuts import reverse
 # Create your models here.
 
 User = get_user_model()
@@ -61,7 +62,7 @@ class PricingPlan(models.Model):
         return f'{self.title} - GH₵ {self.price}'
     
     def get_pricing_plan_url(self):
-        return f'/somethings/'
+        return reverse('core:create-appointment', kwargs={'id': self.id})
 
 class Appointment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
