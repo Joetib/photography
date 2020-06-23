@@ -1,0 +1,19 @@
+
+/* New */
+.bi-pic img{
+    
+    object-position: center;
+}
+pre code {
+    background: #555;
+    color: #999;
+    padding: 1.5em;
+    display: block;
+    box-sizing: border-box;
+}
+pre {
+    padding: 1.2em;
+}
+.blog-hero .set-bg{
+    height: 40vh;
+}

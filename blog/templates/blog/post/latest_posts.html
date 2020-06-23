@@ -1,0 +1,11 @@
+{% for post in latest_posts %}
+<a href="{{ post.get_absolute_url }}" class="fp-item">
+    <div class="fp-pic col-4">
+        <img src="{{ post.image.url }}" alt="">
+    </div>
+    <div class="fp-text">
+        <h6>{{ post.title }}</h6>
+        <span>{{ post.publish }}</span>
+    </div>
+</a>
+{% endfor %}

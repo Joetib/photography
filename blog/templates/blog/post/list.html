@@ -1,0 +1,72 @@
+{%  extends "blog/base.html" %}
+{% load blog_tags %}
+{%  block title %}My Blog{% endblock %}
+{% block blogcontent %}
+<!-- Blog Section Begin -->
+<section class="blog-section spad">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-9">
+                {% for post in posts %}
+                <div class="blog-item">
+                    <div class="bi-pic col-md-6">
+                        <img src="{{ post.image.url }}" alt="">
+                    </div>
+                    <div class="bi-text">
+                        {%  for tag in post.tags.all %}
+                        <a class="label" href="{% url "blog:post_list_by_tag" tag.slug %}">
+                            {{ tag.name }}
+                        </a>
+                        {% endfor %}
+                        <h5><a href="{{ post.get_absolute_url }}">
+                                {{ post.title }}
+                            </a>
+                        </h5>
+                        <ul>
+                            <li>by <span>{{ post.author }}</span></li>
+                            <li>{{ post.publish }}</li>
+                            <li>20 Comment</li>
+                        </ul>
+                        <p>{{ post.body|markdown|truncatewords_html:30 }} </p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center text-danger">Sorry there are no posts</p>
+                {% endfor %}
+                {%  include "pagination.html" with page=posts %}
+
+            </div>
+            <div class="col-lg-3">
+                <div class="blog-sidebar">
+                    <div class="bs-item s-mb">
+                        <h5>Latest posts</h5>
+                        <div class="bi-feature-post">
+                            {% show_latest_posts %}
+
+                        </div>
+                    </div>
+                    <div class="bs-item s-mb">
+                        <h5>Popular posts</h5>
+                        <div class="bi-feature-post">
+                            {% show_latest_posts %}
+                            {% for post in get_most_commented_posts %}
+                            <a href="{{ post.get_absolute_url }}" class="fp-item">
+                                <div class="fp-pic">
+                                    <img src="{{ post.image.url }}" alt="">
+                                </div>
+                                <div class="fp-text">
+                                    <h6>{{ post.title }}</h6>
+                                    <span>{{ post.publish }}</span>
+                                </div>
+                            </a>
+                            {%endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

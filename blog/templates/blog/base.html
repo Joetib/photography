@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load blog_tags %}
+{% load static %}
+
+{% block extrahead %}
+
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="{% url 'core:home' %}"><i class="fa fa-home"></i> Home</a>
+                    {% if tag or query %}
+                    {% if tag  %}
+                    <a href="{% url 'blog:post_list' %}">Blog</a>
+                    <span>{{ tag.name }}</span>
+
+                    {% endif %}
+                    {% if query %}
+                    <a href="{% url 'blog:post_list' %}">Blog</a>
+                    <span>{{ query }}</span>
+
+                    {% endif %}
+                    {% else %}
+                    <span>Blog</span>
+                    {% endif %}
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+<section>
+    <div id="content">
+        {% block blogcontent %}
+        {% endblock %}
+    </div>
+
+</section>
+{% endblock %}

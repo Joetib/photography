@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Breadcrumb Begin -->
+<div class="breadcrumb-option spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="bo-links">
+                    <a href="{% url 'core:home' %}"><i class="fa fa-home"></i> Home</a>
+                    <span>Services</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumb End -->
+
+<!-- Services Section Begin -->
+<section class="services-section services-normal spad">
+    <div class="container">
+        <div class="row">
+            {% for service in services %}
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="services-item">
+                    <img src="{{ service.image.url }}" height="250px" alt="">
+                    <h3>{{ service.name }}</h3>
+                    <p>{{ service.description}}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- Services Section End -->
+
+<!-- Services Option Section Begin -->
+<section class="services-option">
+    <div class="container">
+        <div class="row">
+            {% for detail_service in detail_services %}
+            <div class="col-lg-6">
+
+                <div class="so-item">
+                    <div class="so-title">
+                        <div class="so-number">{% if forloop.counter < 10 %}0{% endif %}{{ forloop.counter }}</div>
+                        <h5>{{ detail_service.name }}</h5>
+                    </div>
+                    <p>{{ detail_service.description }}.</p>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</section>
+<!-- Services Option Section End -->
+{% endblock %}
