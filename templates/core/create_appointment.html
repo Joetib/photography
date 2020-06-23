@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="p-5">
+    <div class="container shadow bg-form p-0">
+        <div class="row no-gutters ">
+            <div class="col-md-6">
+                <img src="{% static 'img/illustration/appointment.jpg' %}">
+            </div>
+            <div class="col-md-6">
+                <form class=" p-5 my-form">
+                    <div class="container">
+                        {% for field in appointment_form %}
+                        {{ field }}
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

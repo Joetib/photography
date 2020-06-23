@@ -29,85 +29,28 @@
             </div>
         </div>
         <div class="row">
+            {% for pricing in pricings %}
             <div class="col-lg-3 col-md-6">
                 <div class="pricing-item">
                     <div class="pi-price">
-                        <h2>$99</h2>
-                        <span>1 hour</span>
+                        <h2>&#8373;{{ pricing.price }}</h2>
+                        <span>{{ pricing.main_feature }}</span>
                     </div>
                     <div class="pi-title">
                         <h3>Basic</h3>
                     </div>
                     <div class="pi-text">
                         <ul>
-                            <li>up to 30 photos</li>
-                            <li>no retouched photos</li>
-                            <li>no make-up</li>
-                            <li>no stylist assistance</li>
+                            {% for feature in pricing.features.all %}
+                            <li>{{ feature.feature }}</li>
+                            {% endfor %}
                         </ul>
-                        <a href="#" class="primary-btn">Get appointment</a>
+                        <a href="{{ pricing.get_pricing_plan_url }}" class="primary-btn">Get appointment</a>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="pricing-item">
-                    <div class="pi-price">
-                        <h2>$199</h2>
-                        <span>2 hour</span>
-                    </div>
-                    <div class="pi-title">
-                        <h3>Standard</h3>
-                    </div>
-                    <div class="pi-text">
-                        <ul>
-                            <li>up to 30 photos</li>
-                            <li>no retouched photos</li>
-                            <li>no make-up</li>
-                            <li>no stylist assistance</li>
-                        </ul>
-                        <a href="#" class="primary-btn">Get appointment</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="pricing-item">
-                    <div class="pi-price">
-                        <h2>$299</h2>
-                        <span>3 hour</span>
-                    </div>
-                    <div class="pi-title">
-                        <h3>Extended</h3>
-                    </div>
-                    <div class="pi-text">
-                        <ul>
-                            <li>up to 30 photos</li>
-                            <li>no retouched photos</li>
-                            <li>no make-up</li>
-                            <li>no stylist assistance</li>
-                        </ul>
-                        <a href="#" class="primary-btn">Get appointment</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6">
-                <div class="pricing-item">
-                    <div class="pi-price">
-                        <h2>$399</h2>
-                        <span>5 hour</span>
-                    </div>
-                    <div class="pi-title">
-                        <h3>Ultimate</h3>
-                    </div>
-                    <div class="pi-text">
-                        <ul>
-                            <li>up to 30 photos</li>
-                            <li>no retouched photos</li>
-                            <li>no make-up</li>
-                            <li>no stylist assistance</li>
-                        </ul>
-                        <a href="#" class="primary-btn">Get appointment</a>
-                    </div>
-                </div>
+            {% endfor %}
+               
             </div>
         </div>
     </div>

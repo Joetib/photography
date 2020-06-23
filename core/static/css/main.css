@@ -21,6 +21,15 @@
 .blog-hero.set-bg{
     height: 90vh;
 }
+.hero-section .container .hs-text{
+    text-shadow: 0 0 5px gray;
+}
+.hs-slider .hs-item{
+    height: 100vh;
+}
+.logo a img{
+    height: 70px;
+}
 @media only screen and (max-width: 986px){
     .header-section.sticky-header{
         position: unset;
@@ -31,4 +40,40 @@
         background-color: black;
     }
     
+}
+
+
+
+/* Form */
+
+.my-form-control {
+    background: #ccc;
+    color: #888;
+    border: none;
+    padding: 1.2rem;
+    font-size: 1.2rem;
+}
+.bg-form{
+    background: rgba(0,0,0,.09);
+}
+.my-form{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.my-form input, .my-form select{
+    padding: 15px 20px;
+    border: none;
+    background: rgba(0,0,0,.04);
+    width: 100%;
+    color: #999;
+    font-size: 0.9rem;
+    margin: 7px;
+
+}
+.my-form input:focus, .my-form select:focus{
+    background: white;
+    box-shadow: 2px 3px 10px rgba(0,0,0,.1);
+
 }

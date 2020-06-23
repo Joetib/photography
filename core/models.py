@@ -37,4 +37,39 @@ class Image(models.Model):
 
 
 
+class Slider(models.Model):
+    title = models.CharField(max_length=300)
+    subtitle = models.CharField(max_length=500)
+    image = models.ImageField(upload_to='sliders/')
+
+    def __str__(self):
+        return self.title
+
+class PricingFeature(models.Model):
+    feature = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.feature
+
+class PricingPlan(models.Model):
+    title = models.CharField(max_length=100)
+    price  = models.PositiveIntegerField()
+    main_feature = models.CharField(max_length=50)
+    features = models.ManyToManyField(PricingFeature, related_name='pricing_plans')
+    
+    def __str__(self):
+        return f'{self.title} - GH₵ {self.price}'
+    
+    def get_pricing_plan_url(self):
+        return f'/somethings/'
+
+class Appointment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    plan = models.ForeignKey(PricingPlan, on_delete=models.CASCADE)
+    venue = models.CharField(max_length=500)
+    date = models.DateTimeField()
+    date_created = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f'Appointment on {self.date} by {self.user.username}'
 
