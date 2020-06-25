@@ -38,7 +38,10 @@ def home(request):
 def gallery(request):
     categories = Category.objects.all()
     images = Image.objects.all()[:11]
-    page_num = int(request.GET.get("page", 1))
+    try:
+        page_num = int(request.GET.get("page", 1))
+    except:
+        page_num = 1
     paginator = Paginator(images, per_page=10)
     if page_num < 1:
         page_num = 1

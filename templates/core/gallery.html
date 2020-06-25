@@ -50,7 +50,20 @@
         </div>
     </div>
     <div class="load-more-btn portfolio-btn">
-        <a href="#">Load More</a>
+       
+<div class="blog-pagination">
+    
+    {% if images.has_previous %}
+        <a href="?page={{ images.previous_page_number }}">&lt;</a>
+    {% endif %}
+    <a class="current">
+        {{ images.number }} 
+    </a>
+    {% if images.has_next %}
+        <a href="?page={{ images.next_page_number }}">&gt;</a>
+    {% endif %}
+
+</div>
     </div>
 </div>
 <!-- Gallery Section End -->
