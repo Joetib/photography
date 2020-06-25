@@ -1,9 +1,20 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.shortcuts import reverse
+from django.contrib.auth.models import AbstractUser
+
 # Create your models here.
 
 User = get_user_model()
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    picture = models.ImageField(upload_to='profile/', blank=True, null=True)
+    phone = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.user.username
+
 
 
 class Service(models.Model):
@@ -65,12 +76,34 @@ class PricingPlan(models.Model):
         return reverse('core:create-appointment', kwargs={'id': self.id})
 
 class Appointment(models.Model):
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     plan = models.ForeignKey(PricingPlan, on_delete=models.CASCADE)
     venue = models.CharField(max_length=500)
+    phone = models.CharField(max_length=10)
+    completed = models.BooleanField(default=False)
     date = models.DateTimeField()
     date_created = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'Appointment on {self.date} by {self.user.username}'
+    
+    def get_absolute_url(self):
+        return reverse('core:appointment-detail', kwargs={'id': self.id})
+
+
+class AppointmentFile(models.Model):
+    appointment = models.ForeignKey(Appointment, related_name="appointment_files", on_delete=models.CASCADE)
+    file = models.FileField(upload_to="appointment/files")
+    date_created = models.DateTimeField(auto_now=True)
+    def __str__(self):
+        return self.file.name 
+
+    def is_image(self):
+        extensions = ('jpg', 'jpeg', 'png','PNG', 'jpe','jpf', 'gif')
+        return self.file.name.split('.')[-1] in extensions
+    def is_video(self):
+        extensions = ('mp4', 'avi', 'mov')
+        return self.file.name.split('.')[-1] in extensions
+
 

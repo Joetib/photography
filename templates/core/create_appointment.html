@@ -5,20 +5,48 @@
 {% block content %}
 <div class="p-5">
     <div class="container shadow bg-form p-0">
-        <div class="row no-gutters ">
-            <div class="col-md-6">
-                <img src="{% static 'img/illustration/appointment.jpg' %}">
+        <div class="row no-gutters relative ">
+            <div class=" col-md-4 col-lg-6 img-section">
+                <img src="{% static 'img/illustration/appointment.jpg' %}" class="h-full">
             </div>
-            <div class="col-md-6">
-                <form class=" p-5 my-form">
+            <div class="col-10 col-md-8 col-lg-6 offset-2 offset-md-0 bg-gray content">
+                <form class=" p-5 my-form" action='.' method="POST">
                     <div class="container">
-                        {% for field in appointment_form %}
-                        {{ field }}
-                        {% endfor %}
+                        <h3 class="py-4 text-success">Book an Appointment</h3>
+                        {% csrf_token %}
+                        <div class="form-group">
+                            {{ appointment_form.plan.errors }}
+
+                            {{ appointment_form.plan }}
+                        </div>
+                        <div class="form-group">
+                            {{ appointment_form.venue.errors }}
+
+                            {{ appointment_form.venue }}
+                        </div>
+                        <div class="form-group">
+                            
+                                {{ appointment_form.phone.errors }}
+                            
+                            {{ appointment_form.phone }}
+                        </div>
+                        <div class="form-group">
+                            {{ appointment_form.date.errors }}
+
+                            <div class="input-group date" id="datetimepicker1" data-target-input="nearest">
+                                {{ appointment_form.date }}
+                                <div class="input-group-append" data-target="#datetimepicker1"
+                                    data-toggle="datetimepicker">
+                                    <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-success">Submit</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
 {% endblock %}

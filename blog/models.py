@@ -1,11 +1,12 @@
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.urls import reverse
 from taggit.managers import TaggableManager
 
 # Create your models here.
 
+User = settings.AUTH_USER_MODEL
 
 class PublishedManager(models.Manager):
     def get_queryset(self):

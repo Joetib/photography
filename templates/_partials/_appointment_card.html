@@ -1,0 +1,14 @@
+<div class="card shadow">
+    <a href="{{ appointment.get_absolute_url }}">
+        <div class="card-header text-white {% if not appointment.completed %}bg-success {% else %}bg-primary{% endif %}">
+            <p>{{ appointment.plan }}</p>
+        </div>
+    </a>
+    <div class="card-body">
+        <p>{{ appointment.date }}</p>
+        <hr>
+        <p>{{ appointment.venue }}</p>
+        <hr>
+        <p>{{ appointment.phone }}</p>
+    </div>
+</div>

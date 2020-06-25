@@ -1,0 +1,61 @@
+{% extends 'base.html' %} 
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% block content %} 
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4 shadow user-info-left">
+            <div class="user-image text-center">
+                {% if request.user.profile.picture %}
+                <img src="{{ request.user.profile.picture.url }}" height="250px">
+                {% else %}
+                <i class="fa fas icon-user" style="font-size: 250px;;"></i>
+                {% endif %}
+            </div>
+            <ul class=" list-style-none">
+                <li>{{ request.user.username }}</li>
+                <li>{{ request.user.profile.phone }}</li>
+                <li><span class="badge badge-primary">{{ total_appointments }}</span> Appointments made</li>
+            </ul>
+            <form  action="{% url 'core:edit-profile' %}" method="POST" enctype="multipart/form-data" class="my-3 card p-4">
+                <p>Change Profile Information</p>
+                {% csrf_token %}
+                {{ profile_form | crispy }}
+                <input type="submit" class="btn btn-success" value="Change Profile">
+            </form>
+
+        </div>
+        <div class="col-md-8 py-4">
+            {% block dashboard_content %} {% if pending_appointments %}
+            <div class="mb-4">
+
+                <h3 class="py-3">Pending Appointments</h3>
+                <div class="row">
+                    {% for appointment in pending_appointments %}
+                    <div class="col-sm-6 col-md-6">
+                        {% include '_partials/_appointment_card.html' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %} {% if completed_appointments %}
+            <div class="mb-4">
+
+                <h3 class="py-3">Completed Appointments</h3>
+
+
+                <div class="row">
+                    {% for appointment in completed_appointments %}
+                    <div class="col-sm-6 col-md-6">
+                        {% include '_partials/_appointment_card.html' %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %} {% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -25,8 +25,9 @@
     <link rel="stylesheet" href="{% static 'css/slicknav.min.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" type="text/css">
     <link rel="stylesheet" href="{% static 'css/main.css' %}" type="text/css">
-    {% block extrahead %}
-    {% endblock %}
+    <link rel="stylesheet" href="{% static 'css/bootstrap-datetimepicker.css' %}" type="text/css">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+    {% block extrahead %} {% endblock %}
 </head>
 
 <body>
@@ -47,14 +48,41 @@
                     </div>
                     <nav class="nav-menu mobile-menu">
                         <ul>
-                            
-                            <li {% if request.path == '/' %}class="active"{% endif %}><a href="{% url 'core:home' %}">Home</a></li>
+
+                            <li {% if request.path == '/' %}class="active" {% endif %}><a
+                                    href="{% url 'core:home' %}">Home</a></li>
                             <li><a href="./about.html">About</a></li>
-                            <li {% if 'services/' in request.path %}class="active"{% endif %}><a href="{% url 'core:services' %}">Services</a></li>
-                            <li {% if 'pricing/' in request.path %}class="active"{% endif %}><a href="{% url 'core:pricing' %}">Pricing</a></li>
-                            <li {% if 'blog/' in request.path %}class="active"{% endif %}><a href="{% url 'blog:post_list' %}">Blog</a></li>
-                            <li {% if 'gallery/' in request.path %}class="active"{% endif %}><a href="{% url 'core:gallery' %}">Gallery</a></li>
-                            <li><a href="./contact.html">Contact</a></li>
+                            <li {% if 'services/' in request.path %}class="active" {% endif %}><a
+                                    href="{% url 'core:services' %}">Services</a></li>
+                            <li {% if 'pricing/' in request.path %}class="active" {% endif %}><a
+                                    href="{% url 'core:pricing' %}">Pricing</a></li>
+                            <li {% if 'blog/' in request.path %}class="active" {% endif %}><a
+                                    href="{% url 'blog:post_list' %}">Blog</a></li>
+                            <li {% if 'gallery/' in request.path %}class="active" {% endif %}><a
+                                    href="{% url 'core:gallery' %}">Gallery</a></li>
+                            <li class="mr-auto nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span>{% if request.user.is_authenticated and request.user.profile.picture %}
+                                        
+                                        <img class="rounded-circle" width="40px" height="40px" src="{{ request.user.profile.picture.url }}"></span>
+                                        
+                                        {% else %}
+                                        <i class="fa fas icon-user"></i>
+                                        {% endif %}
+                                    <i class="fas fa fa-angle-down"></i>
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {% if request.user.is_authenticated %}
+                                    <a class="dropdown-item p-2" href="{% url 'core:dashboard' %}">Dashboard</a>
+                                    <a class="dropdown-item p-2" href="{% url 'account_logout' %}">Logout</a>
+                                    {% else %}
+                                    <a class="dropdown-item p-2" href="{% url 'account_signup' %}">Register</a>
+                                    <a class="dropdown-item p-2"  href="{% url 'account_login' %}">Login</a>
+
+                                    {% endif %}
+                                </div>
+                            </li>
                         </ul>
                     </nav>
                     <div class="top-search search-switch">
@@ -66,8 +94,7 @@
         </div>
     </header>
     <!-- Header End -->
-{% block content %}
-{% endblock %}
+    {% block content %} {% endblock %}
 
     <!-- Footer Section Begin -->
     <footer class="footer-section">
@@ -129,8 +156,13 @@
                 </div>
                 <div class="col-lg-12">
                     <div class="copyright-text">
-                        <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | Built by <a href="https://joetib.blogspot.com" target="_blank">Joetib</a> and <a href="https://salu.cf" target="_blank">Skyoga</a></p>
+                        <p>
+                            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                            Copyright &copy;
+                            <script>
+                                document.write(new Date().getFullYear());
+                            </script> All rights reserved | Built by <a href="https://joetib.blogspot.com"
+                                target="_blank">Joetib</a> and <a href="https://salu.cf" target="_blank">Skyoga</a></p>
                     </div>
                 </div>
             </div>
@@ -142,11 +174,8 @@
     <div class="search-model">
         <div class="h-100 d-flex align-items-center justify-content-center">
             <div class="search-close-switch">+</div>
-            <form class="search-model-form"
-            {% if "/blog/" in request.path %}
-            method="get" action="{% url 'blog:post_search' %}"
-            {% endif %}
-            >
+            <form class="search-model-form" {% if "/blog/" in request.path %} method="get"
+                action="{% url 'blog:post_search' %}" {% endif %}>
                 <input type="text" id="search-input" name="query" placeholder="Search here.....">
             </form>
         </div>
@@ -155,6 +184,7 @@
 
     <!-- Js Plugins -->
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
     <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
@@ -162,6 +192,44 @@
     <script src="{% static 'js/jquery.slicknav.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+    <!-- Propeller textfield js -->
+
+    <!-- Datepicker moment with locales -->
+    <script type="text/javascript" language="javascript" src="{% static 'js/moment-with-locales.js' %}"></script>
+
+    <!-- Propeller Bootstrap datetimepicker -->
+    <script type="text/javascript" language="javascript" src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+
+
+    <!-- Font Awesome -->
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
+        integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <!-- Moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js"
+        integrity="sha256-VBLiveTKyUZMEzJd6z2mhfxIqz3ZATCuVMawPZGzIfA=" crossorigin="anonymous"></script>
+
+    <!-- Tempus Dominus Bootstrap 4 -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/css/tempusdominus-bootstrap-4.min.css"
+        integrity="sha256-XPTBwC3SBoWHSmKasAk01c08M6sIA5gF5+sRxqak2Qs=" crossorigin="anonymous" />
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.1.2/js/tempusdominus-bootstrap-4.min.js"
+        integrity="sha256-z0oKYg6xiLq3yJGsp/LsY9XykbweQlHl42jHv2XTBz4=" crossorigin="anonymous"></script>
+
+    <script>
+        $(function () {
+            $("#datetimepicker1").datetimepicker({
+                format: 'DD/MM/YYYY HH:mm',
+                from: () => {
+                    return new Date();
+                },
+
+            });
+        });
+    </script>
+
+
 </body>
 
 </html>

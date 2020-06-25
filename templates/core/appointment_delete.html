@@ -1,0 +1,21 @@
+{% extends 'core/dashboard.html' %} {% block dashboard_content %}
+<div class="container">
+
+    <div class="d-flex justify-content-between shadow-sm p-4">
+        <div class="">
+            <h4 class="text-success m-0">{{ appointment.plan }}</h4>
+            <sub>{{ appointment.date }}</sub>
+        </div>
+
+    </div>
+    <div class="d-flex flex-column justify-content-center align-items-center" style="height: 400px">
+        <p>Are you sure you want to cancel this appointment?</p>
+        <p>
+            <a href="{% url 'core:delete-appointment' appointment.id %}?confirmed=true" class="btn btn-lg text-white btn-danger">Cancel</a>
+        </p>
+    </div>
+    </a>
+</div>
+
+
+{% endblock %}
