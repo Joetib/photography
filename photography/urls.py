@@ -24,4 +24,9 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),
 ]
 
+admin.site.site_header = "RICH CONNECT"
+admin.site.index_title = "Welcome to RICH CONNECT admin Dashboard"
+
+
+
 urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
